@@ -175,12 +175,17 @@ body.light-mode #theme-toggle:hover { background: rgba(0,0,0,.22); }
   #app {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     gap: 4rem;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding-top: max(2rem, env(safe-area-inset-top));
+    padding-bottom: max(2rem, env(safe-area-inset-bottom));
     min-height: 100vh;
+  }
+
+  /* When weather is expanded, ensure we don't center vertically or clip */
+  #app:has(#weather-section.expanded) {
+    align-items: flex-start;
   }
 
   /* Sticky clock so it doesn't scroll away */

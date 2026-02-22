@@ -165,28 +165,63 @@ body.light-mode #theme-toggle:hover { background: rgba(0,0,0,.22); }
 
 /* ── Landscape / short-viewport layout ──────────────────── */
 @media (orientation: landscape) and (max-height: 500px) {
+  /* Allow scrolling in landscape */
+  html, body { overflow-y: auto; height: auto; min-height: 100%; }
+
+  body {
+    align-items: flex-start; /* Start from top so things don't center vertically off-screen */
+  }
+
   #app {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    gap: 2rem;
+    gap: 4rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    min-height: 100vh;
   }
 
-  #clock-section { margin-bottom: 0; }
+  /* Sticky clock so it doesn't scroll away */
+  #clock-section { 
+    margin-bottom: 0;
+    position: sticky;
+    top: 2rem;
+  }
 
+  /* Make divider a full vertical line */
   .divider {
     width: 1px;
-    height: 60px;
+    height: auto;
+    min-height: 200px;
+    background: rgba(255,255,255,.2);
     margin: 0;
+    align-self: stretch;
+  }
+  body.light-mode .divider { background: rgba(0,0,0,.2); }
+
+  #weather-section { 
+    min-height: unset;
+    /* Allow it to take up space, but limit width */
+    flex: 0 1 500px;
+    max-width: 50vw;
+  }
+  
+  /* Ensure full height expansion */
+  #weather-section.expanded #weather-details {
+    max-height: none;
+    overflow: visible;
   }
 
-  #weather-section { min-height: unset; }
+  /* Compact grid for landscape */
+  .details-grid { grid-template-columns: 1fr 1fr; }
 
-  #time       { font-size: clamp(3rem, 10vw, 10rem); }
-  #date       { font-size: clamp(.8rem, 2vw, 1.4rem); }
-  #weather-icon { font-size: clamp(2.5rem, 8vw, 7rem); }
-  #temperature  { font-size: clamp(2.5rem, 8vw, 7rem); }
+  /* Font adjustments for shorter screens */
+  #time       { font-size: clamp(3rem, 10vw, 8rem); }
+  #date       { font-size: clamp(.8rem, 2vw, 1.2rem); }
+  #weather-icon { font-size: clamp(2.5rem, 8vw, 6rem); }
+  #temperature  { font-size: clamp(2.5rem, 8vw, 6rem); }
   #condition    { font-size: clamp(.8rem, 2vw, 1.4rem); }
   #location     { font-size: clamp(.7rem, 1.6vw, 1.1rem); }
 }

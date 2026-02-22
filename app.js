@@ -163,4 +163,25 @@ setInterval(loadWeather, 10 * 60 * 1000);
     applyLightMode(isLight);
     localStorage.setItem(PREF_KEY, isLight ? 'light' : 'dark');
   });
+
+  // Auto-hide button logic
+  let hideTimeout;
+  const showButton = () => {
+    btn.classList.remove('hidden');
+    clearTimeout(hideTimeout);
+    hideTimeout = setTimeout(() => btn.classList.add('hidden'), 3000);
+  };
+
+  ['mousemove', 'touchstart', 'click', 'keydown'].forEach(evt => 
+    document.addEventListener(evt, showButton, { passive: true })
+  );
+  
+  // Keep visible while hovering the button
+  btn.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
+  btn.addEventListener('mouseleave', () => {
+    hideTimeout = setTimeout(() => btn.classList.add('hidden'), 3000);
+  });
+
+  // Show initially
+  showButton();
 }());

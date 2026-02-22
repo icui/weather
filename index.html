@@ -31,6 +31,41 @@
       <div id="temperature"></div>
       <div id="condition"></div>
       <div id="location"></div>
+
+      <!-- Detailed Weather (initially hidden) -->
+      <div id="weather-details">
+        
+        <div class="details-grid">
+          <div class="detail-item">
+            <div class="label">Feels Like</div>
+            <div class="value" id="detail-feels-like">--</div>
+          </div>
+          <div class="detail-item">
+            <div class="label">Humidity</div>
+            <div class="value" id="detail-humidity">--</div>
+          </div>
+          <div class="detail-item">
+            <div class="label">Wind</div>
+            <div class="value" id="detail-wind">--</div>
+          </div>
+          <div class="detail-item">
+            <div class="label">Precip</div>
+            <div class="value" id="detail-precip">--</div>
+          </div>
+        </div>
+
+        <div class="forecast-section">
+          <h3>48-Hour Forecast</h3>
+          <div id="hourly-forecast" class="scroll-h"></div>
+        </div>
+
+        <div class="forecast-section">
+          <h3>7-Day Forecast</h3>
+          <div id="daily-forecast" class="list-v"></div>
+        </div>
+
+      </div>
+
       <div id="weather-status">Loading…</div>
     </section>
 

@@ -190,3 +190,154 @@ body.light-mode #theme-toggle:hover { background: rgba(0,0,0,.22); }
   #condition    { font-size: clamp(.8rem, 2vw, 1.4rem); }
   #location     { font-size: clamp(.7rem, 1.6vw, 1.1rem); }
 }
+
+/* ── Detailed Weather ────────────────────────────────────── */
+#weather-section {
+  cursor: pointer;
+  padding: 1rem;
+  border-radius: 1rem;
+  transition: background 0.2s;
+}
+#weather-section:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+#weather-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.4s ease, margin-top 0.4s ease;
+}
+
+#weather-section.expanded #weather-details {
+  max-height: 200px; /* arbitrary limit */
+  opacity: 1;
+  margin-top: 2rem;
+}
+
+/* Collapsed state fix: reduce margin if hidden */
+#weather-section:not(.expanded) #weather-details {
+  margin-top: 0;
+}
+
+.detail-item {
+  background: rgba(255,255,255,0.1);
+  padding: 0.8rem;
+  border-radius: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-item .label {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+
+.detail-item .value {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+/* Light mode adjustments */
+body.light-mode #weather-section:hover {
+  background: rgba(0,0,0,0.05);
+}
+body.light-mode .detail-item {
+  background: rgba(255,255,255,0.4);
+  color: #1a1a2e;
+}
+
+/* ── Forecast & Layout Overrides ─────────────────────────── */
+
+#weather-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  /* Override the grid layout from previous step */
+  grid-template-columns: unset;
+}
+
+#weather-section.expanded #weather-details {
+  max-height: 2000px; /* Allow much more height */
+  opacity: 1;
+  margin-top: 2rem;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: .5rem;
+}
+.details-grid .detail-item {
+  padding: .5rem;
+  min-height: 80px;
+}
+.details-grid .detail-item .label {
+  font-size: .6rem;
+}
+.details-grid .detail-item .value {
+  font-size: 1rem;
+}
+
+.forecast-section h3 {
+  font-size: .9rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  opacity: .6;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+/* Hourly Forecast (Horizontal Scroll) */
+.scroll-h {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  /* Hide scrollbar */
+  scrollbar-width: none; 
+  -ms-overflow-style: none;
+}
+.scroll-h::-webkit-scrollbar { display: none; }
+
+.hour-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 3.5rem;
+}
+.hour-time { font-size: .8rem; opacity: .7; margin-bottom: .2rem; }
+.hour-icon { font-size: 1.5rem; margin-bottom: .2rem; }
+.hour-temp { font-size: 1rem; font-weight: 500; }
+
+/* Daily Forecast (Vertical List) */
+.list-v {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.day-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255,255,255,.06);
+  padding: .8rem 1rem;
+  border-radius: .8rem;
+}
+.day-name { flex: 1; text-align: left; font-weight: 500; }
+.day-icon { flex: 0 0 3rem; text-align: center; font-size: 1.5rem; }
+.day-temp { flex: 1; text-align: right; opacity: .8; display: flex; gap: 1rem; justify-content: flex-end;}
+.day-temp span { min-width: 2rem; }
+.low { opacity: .6; }
+
+/* Light mode overrides */
+body.light-mode .day-item { background: rgba(255,255,255,.4); color: #1a1a2e; }

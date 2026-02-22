@@ -58,8 +58,11 @@ async function fetchWeather(lat, lon) {
   const url =
     `https://api.open-meteo.com/v1/forecast` +
     `?latitude=${lat}&longitude=${lon}` +
-    `&current=temperature_2m,weather_code,is_day` +
+    `&current=temperature_2m,weather_code,is_day,relative_humidity_2m,apparent_temperature,precipitation,wind_speed_10m` +
+    `&hourly=temperature_2m,weather_code,is_day` +
+    `&daily=weather_code,temperature_2m_max,temperature_2m_min` +
     `&temperature_unit=celsius` +
+    `&wind_speed_unit=kmh` + 
     `&timezone=auto`;
 
   const res = await fetch(url);
@@ -89,6 +92,99 @@ function showWeather(data, locationName) {
   document.getElementById('location').textContent     = locationName || '';
   document.getElementById('weather-status').textContent = '';
   document.getElementById('weather-status').classList.remove('error');
+
+  // Update detailed stats
+  document.getElementById('detail-feels-like').textContent = `${Math.round(cur.apparent_temperature)}°C`;
+  document.getElementById('detail-humidity').textContent   = `${cur.relative_humidity_2m}%`;
+  document.getElementById('detail-wind').textContent       = `${cur.wind_speed_10m} km/h`;
+  document.getElementById('detail-precip').textContent     = `${cur.precipitation} mm`;
+
+  // Update Hourly (48h)
+  const hEl = document.getElementById('hourly-forecast');
+  hEl.innerHTML = '';
+  // Open-Meteo returns hourly arrays.
+  const hourly = data.hourly;
+  
+  // Find index for current time
+  const now = new Date();
+  let startIndex = 0;
+  for (let i = 0; i < hourly.time.length; i++) {
+    // hourly.time strings are local time if timezone=auto
+    if (new Date(hourly.time[i]) >= now) {
+      startIndex = i;
+      break;
+    }
+  }
+  // Back up one hour so we see current hour's "forecast" or just-passed hour
+  if (startIndex > 0) startIndex--;
+
+  // Take next 24 (or 48) hours
+  const endIndex = Math.min(startIndex + 48, hourly.time.length);
+  for (let i = startIndex; i < endIndex; i++) {
+    const tStr = hourly.time[i];
+    const temp = Math.round(hourly.temperature_2m[i]);
+    const wCode = hourly.weather_code[i];
+    
+    // WMO map only gives us icon/label.
+    const wInfo = WMO[wCode] || { icon: '?' };
+
+    const dateObj = new Date(tStr);
+    const hourLabel = dateObj.toLocaleTimeString([], { hour: 'numeric' });
+    
+    const el = document.createElement('div');
+    el.className = 'hour-item';
+    el.innerHTML = `
+      <div class="hour-time">${hourLabel}</div>
+      <div class="hour-icon">${wInfo.icon}</div>
+      <div class="hour-temp">${temp}°</div>
+    `;
+    hEl.appendChild(el);
+  }
+
+  // Update Daily (7 days)
+  const dEl = document.getElementById('daily-forecast');
+  dEl.innerHTML = '';
+  const daily = data.daily; // { time: [], weather_code: [], temperature_2m_max: [], ... }
+  
+  // daily.time is "YYYY-MM-DD"
+  for (let i = 0; i < daily.time.length; i++) {
+    const tStr = daily.time[i];
+    // Create date object - simple parsing to avoid timezone shifts on just "YYYY-MM-DD"
+    // But since we want local day name, using the string with Current Timezone context is tricky.
+    // simpler: append T00:00:00 to ensure local or use splitted components.
+    const parts = tStr.split('-');
+    const dateObj = new Date(parts[0], parts[1]-1, parts[2]);
+
+    const max = Math.round(daily.temperature_2m_max[i]);
+    const min = Math.round(daily.temperature_2m_min[i]);
+    const wCode = daily.weather_code[i];
+    const wInfo = WMO[wCode] || { icon: '?' };
+
+    const today = new Date();
+    // Reset hours for comparison
+    today.setHours(0,0,0,0);
+    
+    let dayLabel = dateObj.toLocaleDateString([], { weekday: 'long' });
+    
+    // Check if it is today/tomorrow
+    if (dateObj.getTime() === today.getTime()) {
+      dayLabel = 'Today';
+    } else if (dateObj.getTime() === today.getTime() + 86400000) {
+      dayLabel = 'Tomorrow';
+    }
+
+    const el = document.createElement('div');
+    el.className = 'day-item';
+    el.innerHTML = `
+      <div class="day-name">${dayLabel}</div>
+      <div class="day-icon">${wInfo.icon}</div>
+      <div class="day-temp">
+        <span class="high">${max}°</span>
+        <span class="low">${min}°</span>
+      </div>
+    `;
+    dEl.appendChild(el);
+  }
 
   applyTheme(info.cat, isDay);
 }
@@ -185,3 +281,8 @@ setInterval(loadWeather, 10 * 60 * 1000);
   // Show initially
   showButton();
 }());
+
+// ── Weather Details Toggle ──────────────────────────────────────────────────
+document.getElementById('weather-section').addEventListener('click', () => {
+  document.getElementById('weather-section').classList.toggle('expanded');
+});

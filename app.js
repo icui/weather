@@ -138,3 +138,29 @@ setInterval(updateClock, 1000);
 loadWeather();
 // Refresh weather every 10 minutes
 setInterval(loadWeather, 10 * 60 * 1000);
+
+// ── Light / Dark mode toggle ─────────────────────────────────────────────────
+(function () {
+  const btn = document.getElementById('theme-toggle');
+  const PREF_KEY = 'theme';
+  const themeMeta = document.querySelector('meta[name="theme-color"]');
+
+  function applyLightMode(light) {
+    document.body.classList.toggle('light-mode', light);
+    btn.textContent = light ? '🌙' : '☀️';
+    btn.setAttribute('aria-label', light ? 'Switch to dark mode' : 'Switch to light mode');
+    if (themeMeta) themeMeta.content = light ? '#89d4f5' : '#16213e';
+  }
+
+  // Restore saved preference, or fall back to system preference
+  const saved = localStorage.getItem(PREF_KEY);
+  const preferLight = saved === 'light' ||
+    (saved === null && window.matchMedia('(prefers-color-scheme: light)').matches);
+  applyLightMode(preferLight);
+
+  btn.addEventListener('click', () => {
+    const isLight = !document.body.classList.contains('light-mode');
+    applyLightMode(isLight);
+    localStorage.setItem(PREF_KEY, isLight ? 'light' : 'dark');
+  });
+}());

@@ -115,6 +115,48 @@ body.night-storm     { background: linear-gradient(135deg, #0f0c29 0%, #1a1a2e 1
 /* ── Loading / error states ──────────────────────────────── */
 #weather-status.error { opacity: .7; color: #ffd580; }
 
+/* ── Theme toggle button ─────────────────────────────────── */
+#theme-toggle {
+  position: fixed;
+  top: max(1rem, env(safe-area-inset-top));
+  right: max(1rem, env(safe-area-inset-right));
+  background: rgba(255,255,255,.18);
+  border: none;
+  border-radius: 50%;
+  width: 2.8rem;
+  height: 2.8rem;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+  transition: background .2s;
+}
+
+#theme-toggle:hover { background: rgba(255,255,255,.3); }
+
+/* ── Light mode ──────────────────────────────────────────── */
+body.light-mode {
+  color: #1a1a2e;
+  background: linear-gradient(135deg, #89d4f5 0%, #d0eeff 100%);
+}
+
+body.light-mode.day-clear    { background: linear-gradient(135deg, #89d4f5 0%, #d0eeff 100%); }
+body.light-mode.day-cloudy   { background: linear-gradient(135deg, #c8d6df 0%, #aabbc8 100%); }
+body.light-mode.day-rain     { background: linear-gradient(135deg, #a8c0d6 0%, #8fa8bf 100%); }
+body.light-mode.day-snow     { background: linear-gradient(135deg, #eef3f8 0%, #d8e8f4 100%); }
+body.light-mode.day-storm    { background: linear-gradient(135deg, #9eaabb 0%, #7d8f9e 100%); }
+body.light-mode.night-clear  { background: linear-gradient(135deg, #6890c8 0%, #9ab8d8 100%); }
+body.light-mode.night-cloudy { background: linear-gradient(135deg, #7890a0 0%, #9aaab8 100%); }
+body.light-mode.night-rain   { background: linear-gradient(135deg, #6080a0 0%, #8098b0 100%); }
+body.light-mode.night-snow   { background: linear-gradient(135deg, #9ab4cc 0%, #c0d4e8 100%); }
+body.light-mode.night-storm  { background: linear-gradient(135deg, #6878a0 0%, #8898b4 100%); }
+
+body.light-mode .divider { background: rgba(0,0,0,.25); }
+body.light-mode #weather-status.error { color: #c05000; }
+body.light-mode #theme-toggle { background: rgba(0,0,0,.12); }
+body.light-mode #theme-toggle:hover { background: rgba(0,0,0,.22); }
+
 /* ── Landscape / short-viewport layout ──────────────────── */
 @media (orientation: landscape) and (max-height: 500px) {
   #app {
@@ -135,10 +177,10 @@ body.night-storm     { background: linear-gradient(135deg, #0f0c29 0%, #1a1a2e 1
 
   #weather-section { min-height: unset; }
 
-  #time       { font-size: clamp(2.5rem, 7vw, 7rem); }
-  #date       { font-size: clamp(.75rem, 1.8vw, 1.2rem); }
-  #weather-icon { font-size: clamp(2rem, 6vw, 5rem); }
-  #temperature  { font-size: clamp(2rem, 6vw, 5rem); }
-  #condition    { font-size: clamp(.75rem, 1.8vw, 1.2rem); }
-  #location     { font-size: clamp(.65rem, 1.5vw, 1rem); }
+  #time       { font-size: clamp(3rem, 10vw, 10rem); }
+  #date       { font-size: clamp(.8rem, 2vw, 1.4rem); }
+  #weather-icon { font-size: clamp(2.5rem, 8vw, 7rem); }
+  #temperature  { font-size: clamp(2.5rem, 8vw, 7rem); }
+  #condition    { font-size: clamp(.8rem, 2vw, 1.4rem); }
+  #location     { font-size: clamp(.7rem, 1.6vw, 1.1rem); }
 }

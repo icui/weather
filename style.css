@@ -21,11 +21,11 @@ body {
 }
 
 /* Dynamic backgrounds based on weather / time of day */
-body.day-clear       { background: linear-gradient(135deg, #56ccf2 0%, #2f80ed 100%); }
-body.day-cloudy      { background: linear-gradient(135deg, #8e9eab 0%, #667c8a 100%); }
-body.day-rain        { background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%); }
-body.day-snow        { background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%); color: #1a1a2e; }
-body.day-storm       { background: linear-gradient(135deg, #373b44 0%, #4286f4 100%); }
+body.day-clear       { background: linear-gradient(135deg, #1a3a6e 0%, #0d2244 100%); }
+body.day-cloudy      { background: linear-gradient(135deg, #2a3a44 0%, #182830 100%); }
+body.day-rain        { background: linear-gradient(135deg, #162040 0%, #0c1428 100%); }
+body.day-snow        { background: linear-gradient(135deg, #2a3c52 0%, #1a2c40 100%); }
+body.day-storm       { background: linear-gradient(135deg, #1a1a2c 0%, #0a0a18 100%); }
 body.night-clear     { background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%); }
 body.night-cloudy    { background: linear-gradient(135deg, #2c3e50 0%, #1a1a2e 100%); }
 body.night-rain      { background: linear-gradient(135deg, #1c1c2e 0%, #2c3e50 100%); }
@@ -144,7 +144,7 @@ body.light-mode {
 body.light-mode.day-clear    { background: linear-gradient(135deg, #89d4f5 0%, #d0eeff 100%); }
 body.light-mode.day-cloudy   { background: linear-gradient(135deg, #c8d6df 0%, #aabbc8 100%); }
 body.light-mode.day-rain     { background: linear-gradient(135deg, #a8c0d6 0%, #8fa8bf 100%); }
-body.light-mode.day-snow     { background: linear-gradient(135deg, #eef3f8 0%, #d8e8f4 100%); }
+body.light-mode.day-snow     { background: linear-gradient(135deg, #eef3f8 0%, #d8e8f4 100%); color: #1a1a2e; }
 body.light-mode.day-storm    { background: linear-gradient(135deg, #9eaabb 0%, #7d8f9e 100%); }
 body.light-mode.night-clear  { background: linear-gradient(135deg, #6890c8 0%, #9ab8d8 100%); }
 body.light-mode.night-cloudy { background: linear-gradient(135deg, #7890a0 0%, #9aaab8 100%); }

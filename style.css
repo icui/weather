@@ -37,6 +37,11 @@ body.night-storm     { background: linear-gradient(135deg, #0f0c29 0%, #1a1a2e 1
   user-select: none;
   width: 100%;
   padding: 2rem;
+  /* respect iPhone notch / home indicator */
+  padding-top: max(2rem, env(safe-area-inset-top));
+  padding-bottom: max(2rem, env(safe-area-inset-bottom));
+  padding-left: max(2rem, env(safe-area-inset-left));
+  padding-right: max(2rem, env(safe-area-inset-right));
 }
 
 /* ── Clock ───────────────────────────────────────────────── */
@@ -109,3 +114,31 @@ body.night-storm     { background: linear-gradient(135deg, #0f0c29 0%, #1a1a2e 1
 
 /* ── Loading / error states ──────────────────────────────── */
 #weather-status.error { opacity: .7; color: #ffd580; }
+
+/* ── Landscape / short-viewport layout ──────────────────── */
+@media (orientation: landscape) and (max-height: 500px) {
+  #app {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  #clock-section { margin-bottom: 0; }
+
+  .divider {
+    width: 1px;
+    height: 60px;
+    margin: 0;
+  }
+
+  #weather-section { min-height: unset; }
+
+  #time       { font-size: clamp(2.5rem, 7vw, 7rem); }
+  #date       { font-size: clamp(.75rem, 1.8vw, 1.2rem); }
+  #weather-icon { font-size: clamp(2rem, 6vw, 5rem); }
+  #temperature  { font-size: clamp(2rem, 6vw, 5rem); }
+  #condition    { font-size: clamp(.75rem, 1.8vw, 1.2rem); }
+  #location     { font-size: clamp(.65rem, 1.5vw, 1rem); }
+}

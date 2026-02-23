@@ -48,7 +48,7 @@ body {
 #clock-section { margin-bottom: 3rem; }
 
 #time {
-  font-size: clamp(4rem, 18vw, 14rem);
+  font-size: clamp(5rem, 24vw, 18rem);
   font-weight: 200;
   letter-spacing: -0.02em;
   line-height: 1;
@@ -56,7 +56,7 @@ body {
 }
 
 #date {
-  font-size: clamp(1rem, 3vw, 2rem);
+  font-size: clamp(1.1rem, 3.5vw, 2.5rem);
   font-weight: 300;
   opacity: .75;
   margin-top: .5rem;
@@ -76,13 +76,13 @@ body {
 #weather-section { min-height: 8rem; }
 
 #weather-icon {
-  font-size: clamp(4rem, 12vw, 9rem);
+  font-size: clamp(2rem, 6vw, 4.5rem);
   line-height: 1;
-  margin-bottom: .5rem;
+  margin-bottom: .3rem;
 }
 
 #temperature {
-  font-size: clamp(3.5rem, 12vw, 10rem);
+  font-size: clamp(2rem, 6vw, 5rem);
   font-weight: 200;
   letter-spacing: -.02em;
   line-height: 1;
@@ -90,7 +90,7 @@ body {
 }
 
 #condition {
-  font-size: clamp(1.1rem, 3.5vw, 2.2rem);
+  font-size: clamp(.85rem, 2vw, 1.3rem);
   font-weight: 300;
   opacity: .85;
   margin-top: .4rem;
@@ -98,7 +98,7 @@ body {
 }
 
 #location {
-  font-size: clamp(.9rem, 2.5vw, 1.5rem);
+  font-size: clamp(.75rem, 1.8vw, 1.1rem);
   opacity: .6;
   margin-top: .6rem;
   letter-spacing: .06em;
@@ -193,6 +193,7 @@ body.light-mode #theme-toggle:hover { background: rgba(0,0,0,.22); }
     margin-bottom: 0;
     position: sticky;
     top: 2rem;
+    flex: 5;
   }
 
   /* Make divider a full vertical line */
@@ -208,9 +209,8 @@ body.light-mode #theme-toggle:hover { background: rgba(0,0,0,.22); }
 
   #weather-section { 
     min-height: unset;
-    /* Allow it to take up space, but limit width */
-    flex: 0 1 500px;
-    max-width: 50vw;
+    flex: 0 1 300px;
+    max-width: 35vw;
   }
   
   /* Ensure full height expansion */

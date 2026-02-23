@@ -164,7 +164,7 @@ body.light-mode #theme-toggle { background: rgba(0,0,0,.12); }
 body.light-mode #theme-toggle:hover { background: rgba(0,0,0,.22); }
 
 /* ── Landscape / short-viewport layout ──────────────────── */
-@media (orientation: landscape) and (max-height: 500px) {
+@media (orientation: landscape) {
   /* Allow scrolling in landscape */
   html, body { overflow-y: auto; height: auto; min-height: 100%; }
 

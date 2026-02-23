@@ -13,7 +13,7 @@ html, body {
 body {
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   color: #fff;
-  background: #000;
+  background: #1a1a1a;
   transition: background 2s ease;
   display: flex;
   align-items: center;

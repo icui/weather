@@ -44,6 +44,9 @@ body {
   padding-right: max(2rem, env(safe-area-inset-right));
 }
 
+body.cursor-hidden,
+body.cursor-hidden * { cursor: none !important; }
+
 /* ── Clock ───────────────────────────────────────────────── */
 #clock-section { margin-bottom: 3rem; }
 

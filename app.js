@@ -268,12 +268,16 @@ setInterval(loadWeather, 10 * 60 * 1000);
     localStorage.setItem(PREF_KEY, isLight ? 'light' : 'dark');
   });
 
-  // Auto-hide button logic
+  // Auto-hide button + cursor logic
   let hideTimeout;
   const showButton = () => {
     btn.classList.remove('hidden');
+    document.body.classList.remove('cursor-hidden');
     clearTimeout(hideTimeout);
-    hideTimeout = setTimeout(() => btn.classList.add('hidden'), 3000);
+    hideTimeout = setTimeout(() => {
+      btn.classList.add('hidden');
+      document.body.classList.add('cursor-hidden');
+    }, 3000);
   };
 
   ['mousemove', 'touchstart', 'click', 'keydown'].forEach(evt => 

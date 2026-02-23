@@ -64,6 +64,15 @@ body {
   text-transform: uppercase;
 }
 
+#time .ampm {
+  font-size: .35em;
+  font-weight: 300;
+  opacity: .7;
+  letter-spacing: .05em;
+  vertical-align: middle;
+  margin-left: .3em;
+}
+
 /* ── Divider ─────────────────────────────────────────────── */
 .divider {
   width: 60px;
@@ -222,8 +231,8 @@ body.light-mode #theme-toggle:hover { background: rgba(0,0,0,.22); }
   /* Compact grid for landscape */
   .details-grid { grid-template-columns: 1fr 1fr; }
 
-  /* Font adjustments for shorter screens */
-  #time       { font-size: clamp(3rem, 10vw, 8rem); }
+  /* Font adjustments for landscape */
+  #time       { font-size: clamp(4rem, 16vw, 14rem); }
   #date       { font-size: clamp(.8rem, 2vw, 1.2rem); }
   #weather-icon { font-size: clamp(2.5rem, 8vw, 6rem); }
   #temperature  { font-size: clamp(2.5rem, 8vw, 6rem); }

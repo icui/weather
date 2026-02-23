@@ -38,7 +38,15 @@ function updateClock() {
   const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   const dateStr = now.toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
-  document.getElementById('time').textContent = timeStr;
+  const timeEl = document.getElementById('time');
+  // Wrap AM/PM in a smaller span
+  const ampm = timeStr.match(/\s?(AM|PM)$/i);
+  if (ampm) {
+    const main = timeStr.slice(0, ampm.index);
+    timeEl.innerHTML = main + `<span class="ampm">${ampm[0].trim()}</span>`;
+  } else {
+    timeEl.textContent = timeStr;
+  }
   document.getElementById('date').textContent = dateStr;
 }
 

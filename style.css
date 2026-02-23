@@ -177,7 +177,7 @@ body.light-mode #theme-toggle:hover { background: rgba(0,0,0,.22); }
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 4rem;
+    gap: 0;
     padding-top: max(2rem, env(safe-area-inset-top));
     padding-bottom: max(2rem, env(safe-area-inset-bottom));
     min-height: 100vh;

@@ -245,10 +245,6 @@ body.light-mode #theme-toggle:hover { background: rgba(0,0,0,.22); }
   cursor: pointer;
   padding: 1rem;
   border-radius: 1rem;
-  transition: background 0.2s;
-}
-#weather-section:hover {
-  background: rgba(255,255,255,0.05);
 }
 
 #weather-details {
@@ -296,9 +292,6 @@ body.light-mode #theme-toggle:hover { background: rgba(0,0,0,.22); }
 }
 
 /* Light mode adjustments */
-body.light-mode #weather-section:hover {
-  background: rgba(0,0,0,0.05);
-}
 body.light-mode .detail-item {
   background: rgba(255,255,255,0.4);
   color: #1a1a2e;

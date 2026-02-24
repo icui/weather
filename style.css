@@ -225,10 +225,10 @@ body.light-mode #theme-toggle:hover { background: rgba(0,0,0,.22); }
     max-width: 35vw;
   }
   
-  /* Ensure full height expansion */
+  /* Ensure full height expansion in landscape */
   #weather-section.expanded #weather-details {
-    max-height: none;
-    overflow: visible;
+    max-height: calc(100vh - 6rem);
+    overflow-y: auto;
   }
 
   /* Compact grid for landscape */
@@ -311,9 +311,15 @@ body.light-mode .detail-item {
 }
 
 #weather-section.expanded #weather-details {
-  max-height: 2000px; /* Allow much more height */
+  max-height: calc(100vh - 14rem);
+  overflow-y: auto;
   opacity: 1;
   margin-top: 2rem;
+  cursor: grab;
+}
+#weather-section.expanded #weather-details.dragging {
+  cursor: grabbing;
+  user-select: none;
 }
 
 .details-grid {
@@ -350,8 +356,13 @@ body.light-mode .detail-item {
   /* Hide scrollbar */
   scrollbar-width: none; 
   -ms-overflow-style: none;
+  cursor: grab;
 }
 .scroll-h::-webkit-scrollbar { display: none; }
+.scroll-h.dragging {
+  cursor: grabbing;
+  user-select: none;
+}
 
 .hour-item {
   display: flex;

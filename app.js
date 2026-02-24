@@ -294,7 +294,61 @@ setInterval(loadWeather, 10 * 60 * 1000);
   showButton();
 }());
 
+// ── Drag-to-scroll ──────────────────────────────────────────────────────────
+// Shared flag: set true when any drag-scroll ends so the click handler can ignore the ensuing click
+let dragScrollOccurred = false;
+
+function addDragScroll(el, axis) {
+  let isDown = false;
+  let startX, startY, scrollLeft, scrollTop;
+  let hasDragged = false;
+
+  el.addEventListener('mousedown', (e) => {
+    // Only primary mouse button
+    if (e.button !== 0) return;
+    isDown = true;
+    hasDragged = false;
+    startX = e.pageX;
+    startY = e.pageY;
+    scrollLeft = el.scrollLeft;
+    scrollTop  = el.scrollTop;
+    el.classList.add('dragging');
+    e.preventDefault();
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (!isDown) return;
+    isDown = false;
+    el.classList.remove('dragging');
+    if (hasDragged) {
+      dragScrollOccurred = true;
+    }
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    const dx = e.pageX - startX;
+    const dy = e.pageY - startY;
+    // Only start dragging after moving 4px to distinguish from clicks
+    if (!hasDragged && Math.abs(dx) < 4 && Math.abs(dy) < 4) return;
+    hasDragged = true;
+    e.preventDefault();
+    if (axis === 'x') {
+      el.scrollLeft = scrollLeft - dx;
+    } else {
+      el.scrollTop = scrollTop - dy;
+    }
+  });
+}
+
+addDragScroll(document.getElementById('weather-details'), 'y');
+addDragScroll(document.getElementById('hourly-forecast'), 'x');
+
 // ── Weather Details Toggle ──────────────────────────────────────────────────
 document.getElementById('weather-section').addEventListener('click', () => {
+  if (dragScrollOccurred) {
+    dragScrollOccurred = false;
+    return;
+  }
   document.getElementById('weather-section').classList.toggle('expanded');
 });

@@ -345,10 +345,23 @@ addDragScroll(document.getElementById('weather-details'), 'y');
 addDragScroll(document.getElementById('hourly-forecast'), 'x');
 
 // ── Weather Details Toggle ──────────────────────────────────────────────────
-document.getElementById('weather-section').addEventListener('click', () => {
-  if (dragScrollOccurred) {
-    dragScrollOccurred = false;
-    return;
+(function () {
+  const details  = document.getElementById('weather-details');
+  const backdrop = document.getElementById('weather-backdrop');
+
+  function open()  {
+    details.classList.add('expanded');
+    backdrop.classList.add('visible');
   }
-  document.getElementById('weather-section').classList.toggle('expanded');
-});
+  function close() {
+    details.classList.remove('expanded');
+    backdrop.classList.remove('visible');
+  }
+
+  document.getElementById('weather-section').addEventListener('click', () => {
+    if (dragScrollOccurred) { dragScrollOccurred = false; return; }
+    open();
+  });
+
+  backdrop.addEventListener('click', close);
+}());

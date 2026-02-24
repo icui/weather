@@ -195,11 +195,6 @@ body.light-mode #theme-toggle:hover { background: rgba(0,0,0,.22); }
     min-height: 100vh;
   }
 
-  /* When weather is expanded, ensure we don't center vertically or clip */
-  #app:has(#weather-section.expanded) {
-    align-items: flex-start;
-  }
-
   /* Sticky clock so it doesn't scroll away */
   #clock-section { 
     margin-bottom: 0;
@@ -225,12 +220,6 @@ body.light-mode #theme-toggle:hover { background: rgba(0,0,0,.22); }
     max-width: 35vw;
   }
   
-  /* Ensure full height expansion in landscape */
-  #weather-section.expanded #weather-details {
-    max-height: calc(100vh - 6rem);
-    overflow-y: auto;
-  }
-
   /* Compact grid for landscape */
   .details-grid { grid-template-columns: 1fr 1fr; }
 
@@ -243,34 +232,70 @@ body.light-mode #theme-toggle:hover { background: rgba(0,0,0,.22); }
   #location     { font-size: clamp(.7rem, 1.6vw, 1.1rem); }
 }
 
-/* ── Detailed Weather ────────────────────────────────────── */
+/* ── Weather Summary (clickable) ────────────────────────── */
 #weather-section {
   cursor: pointer;
   padding: 1rem;
   border-radius: 1rem;
 }
 
-#weather-details {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-top: 2rem;
-  max-height: 0;
+/* ── Weather Details — bottom-sheet popup ────────────────── */
+#weather-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
   opacity: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease, opacity 0.4s ease, margin-top 0.4s ease;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+  z-index: 90;
 }
-
-#weather-section.expanded #weather-details {
-  max-height: 200px; /* arbitrary limit */
+#weather-backdrop.visible {
   opacity: 1;
-  margin-top: 2rem;
+  pointer-events: auto;
 }
 
-/* Collapsed state fix: reduce margin if hidden */
-#weather-section:not(.expanded) #weather-details {
-  margin-top: 0;
+#weather-details {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-height: 78vh;
+  background: rgba(12, 12, 28, 0.94);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 1.5rem 1.5rem 0 0;
+  padding: 0 1.5rem max(2rem, env(safe-area-inset-bottom));
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
 }
+#weather-details::-webkit-scrollbar { display: none; }
+
+/* Drag handle indicator */
+#weather-details::before {
+  content: '';
+  display: block;
+  width: 3rem;
+  height: 4px;
+  background: rgba(255,255,255,.3);
+  border-radius: 2px;
+  margin: 1rem auto 0.5rem;
+  flex-shrink: 0;
+}
+
+#weather-details.expanded  { transform: translateY(0); }
+#weather-details.dragging  { cursor: grabbing; user-select: none; }
+
+body.light-mode #weather-details { background: rgba(230, 240, 255, 0.96); color: #1a1a2e; }
+body.light-mode #weather-backdrop { background: rgba(0,0,0,.3); }
+body.light-mode #weather-details::before { background: rgba(0,0,0,.2); }
 
 .detail-item {
   background: rgba(255,255,255,0.1);
@@ -300,27 +325,7 @@ body.light-mode .detail-item {
   color: #1a1a2e;
 }
 
-/* ── Forecast & Layout Overrides ─────────────────────────── */
-
-#weather-details {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  /* Override the grid layout from previous step */
-  grid-template-columns: unset;
-}
-
-#weather-section.expanded #weather-details {
-  max-height: calc(100vh - 14rem);
-  overflow-y: auto;
-  opacity: 1;
-  margin-top: 2rem;
-  cursor: grab;
-}
-#weather-section.expanded #weather-details.dragging {
-  cursor: grabbing;
-  user-select: none;
-}
+/* ── Forecast Content ────────────────────────────────────── */
 
 .details-grid {
   display: grid;

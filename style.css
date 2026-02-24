@@ -130,6 +130,7 @@ body.cursor-hidden * { cursor: none !important; }
 
 /* ── Theme toggle button ─────────────────────────────────── */
 #theme-toggle {
+  display: none;
   position: fixed;
   top: max(1rem, env(safe-area-inset-top));
   right: max(1rem, env(safe-area-inset-right));

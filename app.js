@@ -256,11 +256,13 @@ setInterval(loadWeather, 10 * 60 * 1000);
     if (themeMeta) themeMeta.content = light ? '#89d4f5' : '#16213e';
   }
 
-  // Restore saved preference, or fall back to system preference
-  const saved = localStorage.getItem(PREF_KEY);
-  const preferLight = saved === 'light' ||
-    (saved === null && window.matchMedia('(prefers-color-scheme: light)').matches);
-  applyLightMode(preferLight);
+  // Always use dark mode
+  applyLightMode(false);
+  // // Restore saved preference, or fall back to system preference
+  // const saved = localStorage.getItem(PREF_KEY);
+  // const preferLight = saved === 'light' ||
+  //   (saved === null && window.matchMedia('(prefers-color-scheme: light)').matches);
+  // applyLightMode(preferLight);
 
   btn.addEventListener('click', () => {
     const isLight = !document.body.classList.contains('light-mode');

@@ -237,7 +237,7 @@ async function loadWeather() {
 
 // ── Init ────────────────────────────────────────────────────────────────────
 updateClock();
-setInterval(updateClock, 1000);
+setInterval(updateClock, 30_000);
 
 loadWeather();
 // Refresh weather every 10 minutes

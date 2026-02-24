@@ -200,7 +200,7 @@ body.light-mode #theme-toggle:hover { background: rgba(0,0,0,.22); }
     margin-bottom: 0;
     position: sticky;
     top: 2rem;
-    flex: 5;
+    flex: 3;
   }
 
   /* Make divider a full vertical line */
@@ -209,15 +209,14 @@ body.light-mode #theme-toggle:hover { background: rgba(0,0,0,.22); }
     height: auto;
     min-height: 200px;
     background: rgba(255,255,255,.2);
-    margin: 0;
+    margin: 0 -2rem;
     align-self: stretch;
   }
   body.light-mode .divider { background: rgba(0,0,0,.2); }
 
   #weather-section { 
     min-height: unset;
-    flex: 0 1 300px;
-    max-width: 35vw;
+    flex: 2;
   }
   
   /* Compact grid for landscape */

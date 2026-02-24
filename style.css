@@ -257,15 +257,15 @@ body.light-mode #theme-toggle:hover { background: rgba(0,0,0,.22); }
 #weather-details {
   position: fixed;
   bottom: 0;
-  left: 0;
-  right: 0;
+  left: 50%;
+  width: min(47.5rem, 100%);
   background: rgba(12, 12, 28, 0.94);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-radius: 1.5rem 1.5rem 0 0;
   padding: 0 1.5rem max(2rem, env(safe-area-inset-bottom));
   overflow: hidden;
-  transform: translateY(100%);
+  transform: translateX(-50%) translateY(100%);
   transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
   z-index: 100;
   display: flex;
@@ -285,7 +285,7 @@ body.light-mode #theme-toggle:hover { background: rgba(0,0,0,.22); }
   flex-shrink: 0;
 }
 
-#weather-details.expanded { transform: translateY(0); }
+#weather-details.expanded { transform: translateX(-50%) translateY(0); }
 
 body.light-mode #weather-details { background: rgba(230, 240, 255, 0.96); color: #1a1a2e; }
 body.light-mode #weather-backdrop { background: rgba(0,0,0,.3); }

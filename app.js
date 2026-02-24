@@ -341,8 +341,8 @@ function addDragScroll(el, axis) {
   });
 }
 
-addDragScroll(document.getElementById('weather-details'), 'y');
 addDragScroll(document.getElementById('hourly-forecast'), 'x');
+addDragScroll(document.getElementById('daily-forecast'),  'x');
 
 // ── Weather Details Toggle ──────────────────────────────────────────────────
 (function () {

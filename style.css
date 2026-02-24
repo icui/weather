@@ -123,6 +123,7 @@ body.cursor-hidden * { cursor: none !important; }
   margin-top: 1.5rem;
   font-style: italic;
 }
+#weather-status:empty { margin-top: 0; }
 
 /* ── Loading / error states ──────────────────────────────── */
 #weather-status.error { opacity: .7; color: #ffd580; }

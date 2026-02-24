@@ -395,12 +395,12 @@ body.light-mode .detail-item {
   background: rgba(255,255,255,.06);
   padding: .8rem .6rem;
   border-radius: .8rem;
-  min-width: 4rem;
+  min-width: 5.5rem;
   flex-shrink: 0;
 }
 .day-name { font-size: .75rem; font-weight: 500; opacity: .8; white-space: nowrap; }
 .day-icon { font-size: 1.5rem; }
-.day-temp { display: flex; flex-direction: column; align-items: center; gap: .1rem; }
+.day-temp { display: flex; flex-direction: row; align-items: center; gap: .3rem; }
 .day-temp span { font-size: .85rem; min-width: unset; }
 .low { opacity: .6; }
 
